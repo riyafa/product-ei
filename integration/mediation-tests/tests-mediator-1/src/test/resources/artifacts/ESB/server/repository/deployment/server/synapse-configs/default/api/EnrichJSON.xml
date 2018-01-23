@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="EnrichJSON"
+     context="/enrichjson">
+    <resource methods="POST GET">
+        <inSequence>
+            <enrich>
+                <source type="inline" clone="true">
+                    <Value xmlns="">PartyId</Value>
+                </source>
+                <target action="child" xpath="//jsonObject"/>
+            </enrich>
+            <payloadFactory media-type="json">
+                <format>{ "a" : $1 , "b":"thampi"}</format>
+                <args>
+                    <arg evaluator="json" expression="$"/>
+                </args>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
